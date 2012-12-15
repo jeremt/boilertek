@@ -1,0 +1,88 @@
+#!/usr/bin/env coffee
+
+# Module dependencies
+
+fs = require 'fs'
+utils = require '../lib/utils'
+Boilerplate = require '../lib/boilerplate'
+
+# Informations
+
+name = "boilertek"
+version = "0.0.1"
+
+# The directory who contains all project templates
+
+tmpl = __dirname + '/../templates/'
+
+# Set the default template
+
+template = 'default'
+
+# Usage message to display
+
+usage = """
+
+  \x1b[1mUsage\x1b[m tek [args]
+
+    It's a little script to easily initialize your project.
+
+  \x1b[1mArguments\x1b[m
+
+    -t, --template <name>   The <name> of the template to use
+    -p, --path <path>       The <path> of the generation output
+    -V, --version           Display the version of tek
+    -h, --help              Display usage informations
+
+"""
+
+# Simple error handling helpers
+
+error = (msg) ->
+	process.stderr.write "\n  \x1b[1mError\x1b[m #{msg}\n\n"
+	process.exit 42
+
+# Parse given arguements
+
+required = (arg) ->
+	if args.length
+		return args.shift()
+	else
+		error "`#{arg}` require an argument."
+
+args = process.argv.slice 2
+
+path = null
+
+unless args.length
+	console.warn usage
+	process.exit 42
+
+while args.length
+	switch arg = args.shift()
+		when '-h', '--help'
+			console.warn usage
+			process.exit 42
+		when '-t', '--template'
+			template = required(args, arg)
+		when '-p', '--path'
+			path = required arg
+		when '-V', '--version'
+			console.log "#{name} #{version}"
+			process.exit 42
+		else
+			error "Unknown argument #{arg}."
+
+unless path
+	error "path argument cannot be undefined."
+
+tmpl += template
+
+unless fs.existsSync tmpl
+	error "#{template} template doesnt exists."
+
+# Generate the boilerplate
+
+b = new Boilerplate tmpl, path
+
+b.generate()
