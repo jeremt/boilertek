@@ -1,4 +1,7 @@
 {
-	"name": "Boilertek",
+	"name": "boilertek",
 	"version": "0.0.1",
+  "dependencies": {
+    "superagent": "latest"
+  }
 }

@@ -1,2 +1,0 @@
-rm -rf tests/*
-./bin/tek -o tests/test1 -t $1

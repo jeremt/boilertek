@@ -1,25 +1,30 @@
 #!/usr/bin/env coffee
 
+#
 # Module dependencies
+#
 
 fs = require 'fs'
 utils = require '../lib/utils'
 Boilerplate = require '../lib/boilerplate'
+install = require '../lib/install'
+pkg = require '../package'
 
-# Informations
-
-name = "boilertek"
-version = "0.0.1"
-
+#
 # The directory who contains all project templates
+#
 
 tmpl = __dirname + '/../templates/'
 
+#
 # Set the default template
+#
 
 template = 'default'
 
+#
 # Usage message to display
+#
 
 usage = """
 
@@ -37,19 +42,37 @@ usage = """
 
 """
 
+#
 # Simple error handling helpers
+#
 
 error = (msg) ->
   process.stderr.write "\n  \x1b[1mError\x1b[m #{msg}\n\n"
   process.exit 42
 
-# Parse given arguements
+#
+# Get the next arg or throw an error
+#
 
 required = (arg) ->
   if args.length
     return args.shift()
   else
     error "`#{arg}` require an argument."
+
+#
+# Get an array from given args
+#
+
+multi = ->
+  arr = []
+  while args.length and args[0][0] isnt '-'
+    arr.push args.shift()
+  arr
+
+#
+# Get options
+#
 
 args = process.argv.slice 2
 
@@ -69,10 +92,10 @@ while args.length
     when '-o', '--output'
       path = required arg
     when '-V', '--version'
-      console.log "#{name} #{version}"
+      console.log "#{pkg.name} #{pkg.version}"
       process.exit 42
     when '-l', '--libs'
-      console.log "coming soon <3"
+      libs = multi()
     else
       error "Unknown argument #{arg}."
 
@@ -84,8 +107,25 @@ tmpl += template
 unless fs.existsSync tmpl
   error "#{template} template doesnt exists."
 
+#
 # Generate the boilerplate
+#
+
+console.log "\n►   \x1b[1mConfigure\x1b[m\n"
 
 b = new Boilerplate tmpl, path
 
-b.generate()
+b.generate ->
+
+#
+# Fetch libraries
+#
+
+  if libs
+
+    console.log "\n►   \x1b[1mFetch libraries\x1b[m\n"
+    for lib in libs
+      console.log "  \x1b[1minstall\x1b[m #{lib}"
+      p = lib.split '/'
+      install p[0], p[1], path + "/libs"
+  console.log()

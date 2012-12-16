@@ -60,7 +60,7 @@ module.exports = class Boilerplate
 	# Generate the boilerplate
 	#
 
-	generate: ->
+	generate: (next = ->) ->
 		@configure (config) =>
 			utils.walk @template, (err, files) =>
 				if err then throw err
@@ -95,3 +95,4 @@ module.exports = class Boilerplate
 						"""
 
 					utils.fwrite @path + file, content
+				next()
