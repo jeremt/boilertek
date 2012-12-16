@@ -23,16 +23,17 @@ template = 'default'
 
 usage = """
 
-  \x1b[1mUsage\x1b[m tek [args]
+►   \x1b[1mUsage\x1b[m tek [args]
 
     It's a little script to easily initialize your project.
 
-  \x1b[1mArguments\x1b[m
+►   \x1b[1mOptions\x1b[m
 
-    -t, --template <name>   The <name> of the template to use
-    -p, --path <path>       The <path> of the generation output
-    -V, --version           Display the version of tek
-    -h, --help              Display usage informations
+    -t, --template <name>     The <name> of the template to use
+    -o, --output <path>       The <path> to the output directory
+    -V, --version             Display the version of tek
+    -h, --help                Display usage informations
+    -l, --libs <l1, l2...>    Load some libraries into your project
 
 """
 
@@ -64,8 +65,8 @@ while args.length
 			console.warn usage
 			process.exit 42
 		when '-t', '--template'
-			template = required(args, arg)
-		when '-p', '--path'
+			template = required arg
+		when '-o', '--output'
 			path = required arg
 		when '-V', '--version'
 			console.log "#{name} #{version}"

@@ -1,3 +1,4 @@
+
 #
 # Module dependencies
 #
@@ -13,8 +14,10 @@ header = require './header'
 
 module.exports = class Boilerplate
 
+	#
 	# Initialize the boilerplate with a `template`
 	# and the `path` of the output directory
+	#
 
 	constructor: (@template, @path) ->
 		unless @template and @path
@@ -22,12 +25,14 @@ module.exports = class Boilerplate
 
 		fs.mkdirSync @path, 0o0775
 
+	#
 	# Configure the project from the `boilertek.json` config file
+	#
 
 	configure: (next) ->
 
 		unless fs.existsSync @template + '/boilertek.json'
-			return final []
+			return next []
 
 		config = require @template + '/boilertek'
 
@@ -51,13 +56,16 @@ module.exports = class Boilerplate
 
 		_configure()
 
+	#
 	# Generate the boilerplate
+	#
 
 	generate: ->
 		@configure (config) =>
 			utils.walk @template, (err, files) =>
 				if err then throw err
 				for file in files
+					continue if path.basename(file) is 'boilertek.json'
 					content = fs.readFileSync file, 'utf8'
 					# get file type
 					if path.basename(file).toLowerCase() is 'makefile'

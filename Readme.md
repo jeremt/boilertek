@@ -5,6 +5,7 @@ Boilertek is a generic scafolding tool with some customization options and a fre
 
 Usage
 -----
+
 ```shell
 Usage tek [args]
 
@@ -18,7 +19,13 @@ Arguments
   -h, --help              Display usage informations
 
 ```
-### boilertek.json
+
+### create
+
+Generate a project from a template.
+
+#### boilertek.json
+
 Add a boilertek.json file to easily congure your template. Add data to add some variables, and header to add a header on each file (epitech header supported yet :)). Example :
 ```json
 {
