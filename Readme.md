@@ -41,10 +41,8 @@ TODO
 ----
 
 - Git handling (unit test, version, svn...)
-- Add c/c++/client-side tmpl
 - make install (to install tek binary)
-- Create a micro library to handle shell prompts ([Yn], question, choices...)
-- Create generic package manager
+- Fetch libraries from bitbucket
 
 Infos
 -----

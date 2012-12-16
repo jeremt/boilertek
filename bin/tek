@@ -115,13 +115,15 @@ console.log "\n►   \x1b[1mConfigure\x1b[m\n"
 
 b = new Boilerplate tmpl, path
 
-b.generate ->
+b.generate (l) ->
 
 #
 # Fetch libraries
 #
 
   if libs
+
+    if l then libs = libs.concat l
 
     console.log "\n►   \x1b[1mFetch libraries\x1b[m\n"
     for lib in libs
