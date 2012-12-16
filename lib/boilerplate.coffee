@@ -59,23 +59,28 @@ module.exports = class Boilerplate
 				if err then throw err
 				for file in files
 					content = fs.readFileSync file, 'utf8'
-
+					# get file type
+					if path.basename(file).toLowerCase() is 'makefile'
+						ext = 'makefile'
+					else
+						ext = path.extname(file).substr(1)
+						if ext is 'h' then ext = 'c'
+						if ext in ['md', 'json'] then ext = ''
 					# replacing data
 					for key, value of config.values
 						regexp = new RegExp "{{#{key}}}", 'g'
 						file = file.replace regexp, value
 						content = content.replace regexp, value
 					file = file.substring @template.length
-
 					# add header
-					if config.header and config.header is "epitech"
+					if ext and config.header and config.header is "epitech"
 						basename = path.basename @path + file, content
 						dirname = path.dirname @path + file, content
 						content = """
 						#{header(
 							basename
 							config.values.project
-							'c'
+							ext
 							path.join process.env.PWD, dirname
 						)}
 						#{content}
