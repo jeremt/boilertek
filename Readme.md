@@ -7,24 +7,22 @@ Usage
 -----
 
 ```shell
-Usage tek [args]
 
-  It's a little script to easily initialize your project.
+►   Usage tek [args]
 
-Arguments
+    Simple script to easily generate project skeleton.
 
-  -t, --template <name>   The <name> of the template to use
-  -p, --path <path>       The <path> of the generation output
-  -V, --version           Display the version of tek
-  -h, --help              Display usage informations
+►   Options
+
+    -t, --template <name>     The <name> of the template to use
+    -o, --output <path>       The <path> to the output directory
+    -V, --version             Display version
+    -h, --help                Display help
+    -l, --libs <l1, l2...>    Load some libraries into your project
 
 ```
 
-### create
-
-Generate a project from a template.
-
-#### boilertek.json
+### boilertek.json
 
 Add a boilertek.json file to easily congure your template. Add data to add some variables, and header to add a header on each file (epitech header supported yet :)). Example :
 ```json

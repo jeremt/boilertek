@@ -25,7 +25,7 @@ usage = """
 
 ►   \x1b[1mUsage\x1b[m tek [args]
 
-    It's a little script to easily initialize your project.
+    Simple script to easily generate project skeleton.
 
 ►   \x1b[1mOptions\x1b[m
 
@@ -40,39 +40,41 @@ usage = """
 # Simple error handling helpers
 
 error = (msg) ->
-	process.stderr.write "\n  \x1b[1mError\x1b[m #{msg}\n\n"
-	process.exit 42
+  process.stderr.write "\n  \x1b[1mError\x1b[m #{msg}\n\n"
+  process.exit 42
 
 # Parse given arguements
 
 required = (arg) ->
-	if args.length
-		return args.shift()
-	else
-		error "`#{arg}` require an argument."
+  if args.length
+    return args.shift()
+  else
+    error "`#{arg}` require an argument."
 
 args = process.argv.slice 2
 
 path = null
 
 unless args.length
-	console.warn usage
-	process.exit 42
+  console.warn usage
+  process.exit 42
 
 while args.length
-	switch arg = args.shift()
-		when '-h', '--help'
-			console.warn usage
-			process.exit 42
-		when '-t', '--template'
-			template = required arg
-		when '-o', '--output'
-			path = required arg
-		when '-V', '--version'
-			console.log "#{name} #{version}"
-			process.exit 42
-		else
-			error "Unknown argument #{arg}."
+  switch arg = args.shift()
+    when '-h', '--help'
+      console.warn usage
+      process.exit 42
+    when '-t', '--template'
+      template = required arg
+    when '-o', '--output'
+      path = required arg
+    when '-V', '--version'
+      console.log "#{name} #{version}"
+      process.exit 42
+    when '-l', '--libs'
+      console.log "coming soon <3"
+    else
+      error "Unknown argument #{arg}."
 
 unless path
 	error "path argument cannot be undefined."
@@ -80,7 +82,7 @@ unless path
 tmpl += template
 
 unless fs.existsSync tmpl
-	error "#{template} template doesnt exists."
+  error "#{template} template doesnt exists."
 
 # Generate the boilerplate
 
