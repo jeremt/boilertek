@@ -2,8 +2,8 @@
 all: clean test
 
 test:
-	@./bin/tek -t c -o tests/my_test -l jeremt/list
-	@tree tests/my_test && cat tests/my_test/Makefile
+	@./bin/tek -t c -o my_project -l jeremt/list
+	@tree my_project && cat my_project/Makefile
 
 clean:
-	@rm -rf tests/*
+	@rm -rf my_project

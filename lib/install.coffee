@@ -16,7 +16,10 @@ exports.github = (user, repo, dir, next = ->) ->
     res.pipe tarball
     res.on 'end', ->
       cmd = "unzip /tmp/#{repo}.zip -d #{dir}"
+      # rename lib directory (e.g: list-master -> list)
       cmd += " && mv #{dir}/#{repo}-master #{dir}/#{repo}"
+      # copy lib .h in inc/
+      cmd += " && cp #{dir}/#{repo}/lib/#{repo}.h #{dir}/../inc"
       exec cmd, (err) ->
         if err then return next err
         next null
