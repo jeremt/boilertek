@@ -57,6 +57,7 @@ TODO
 - Git handling (unit test, version, svn...)
 - make install (to install tek binary)
 - bitbucket support
+- -I for c libs (or cp .h in inc)
 
 License
 -------
