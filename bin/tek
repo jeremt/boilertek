@@ -115,7 +115,7 @@ console.log "\n►   \x1b[1mConfigure\x1b[m\n"
 
 b = new Boilerplate tmpl, path
 
-b.generate (l) ->
+b.generate libs, (l) ->
 
 #
 # Fetch libraries
@@ -129,5 +129,5 @@ b.generate (l) ->
     for lib in libs
       console.log "  \x1b[1minstall\x1b[m #{lib}"
       p = lib.split '/'
-      install p[0], p[1], path + "/libs"
+      install.github p[0], p[1], path + "/libs"
   console.log()

@@ -1,0 +1,8 @@
+
+@import url('reset.css');
+
+body {
+  padding: 42px;
+  font-family: sans-serif;
+  color: #222;
+}

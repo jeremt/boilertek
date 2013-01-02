@@ -57,10 +57,28 @@ module.exports = class Boilerplate
 		_configure()
 
 	#
+	# Links libraries into the makefile
+	#
+
+	linkLibs: (content) ->
+		return unless @libs.length
+		arr = content.split '\n'
+		libs = (l.split('/')?[1] for l in @libs)
+		for i, row of arr
+			if row.indexOf('LFLAGS =') is 0
+				arr[i] += ' -l' + l for l in libs
+				arr[i] += ' -L libs/'
+				arr[i] += l for l in libs
+			if row.indexOf('$(NAME):') is 0
+				for l in libs
+					arr.splice ++i, 0, "\tmake -C libs/#{l}"
+		arr.join '\n'
+
+	#
 	# Generate the boilerplate
 	#
 
-	generate: (next = ->) ->
+	generate: (@libs, next = ->) ->
 		@configure (config) =>
 			utils.walk @template, (err, files) =>
 				if err then throw err
@@ -93,6 +111,8 @@ module.exports = class Boilerplate
 						)}
 						#{content}
 						"""
+					if ext is 'makefile' and @libs
+						content = @linkLibs content
 
 					utils.fwrite @path + file, content
 				next()

@@ -1,18 +1,16 @@
 
-# Config
-
 NAME = {{project}}
 
-SDIR = src/
-IDIR = inc/
+CFLAGS = -Wall -I inc/
 
-SRC = $(SDIR).main.c
+LFLAGS =
+
+SRC = src/main.c
+
 OBJ = $(SRC:.c=.o)
 
-# Tasks
-
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 all: $(NAME)
 
