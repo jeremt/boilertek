@@ -24,7 +24,9 @@ Usage
 
 ### boilertek.json
 
-Add a boilertek.json file to easily congure your template. Add data to add some variables, and header to add a header on each file (epitech header supported yet :)). Example :
+Add a boilertek.json file to easily configure your template.
+The `data` parameter provides you a simple way to add some customisable variables and `header` allow you to set the type of header to add at the top of each file.
+Example :
 
 ```json
 {
@@ -41,14 +43,13 @@ Add a boilertek.json file to easily congure your template. Add data to add some 
 Real-life example
 -----------------
 
-If you want to start a new C project with a simple doubly linked list library, you just have to tap the following command:
+For example, if you want to start a new C project with a simple doubly linked list library, you just have to type the following command:
 
 ```shell
 tek -t c -l jeremt/list -o my_awesome_project
 ```
 
 So, you get a simple skeleton of a c project with a Makefile a .h and a .c.
-
 Moreover, you get my [list](https://github.com/jeremt/list) library from my github account who is automaticaly added to the Makefile of your project ;-).
 
 TODO
